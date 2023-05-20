@@ -1,0 +1,160 @@
+//Initialiser le projet//
+
+mkdir gestion-contenu
+cd gestion-contenu
+npm init -y
+
+//Installer les dépendances//
+
+npm install express body-parser --save
+npm install mocha chai sinon --save-dev
+
+//Créer le serveur Express//
+
+const express = require('express');
+const bodyParser = require('body-parser');
+
+const app = express();
+app.use(bodyParser.json());
+
+// Route pour la gestion des utilisateurs
+app.post('/users', (req, res) => {
+  const { username, email } = req.body;
+  // Effectuer la logique de création d'utilisateur
+  // ...
+
+  res.status(201).json({ message: 'Utilisateur créé avec succès' });
+});
+
+// Route pour la réservation
+app.post('/reservation', (req, res) => {
+  const { userId, date } = req.body;
+  // Effectuer la logique de réservation
+  // ...
+
+  res.status(201).json({ message: 'Réservation effectuée avec succès' });
+});
+
+const port = 3000;
+app.listen(port, () => {
+  console.log(`Serveur en écoute sur le port ${port}`);
+});
+
+//Tester les composants avec des tests unitaires//
+
+const chai = require('chai');
+const sinon = require('sinon');
+const { expect } = chai;
+
+const { createUser } = require('../users');
+
+describe('Users', () => {
+  it('devrait créer un nouvel utilisateur', () => {
+    const req = { body: { username: 'JohnDoe', email: 'john@example.com' } };
+    const res = { status: sinon.spy(), json: sinon.spy() };
+
+    createUser(req, res);
+
+    expect(res.status.calledWith(201)).to.be.true;
+    expect(res.json.calledWith({ message: 'Utilisateur créé avec succès' })).to.be.true;
+  });
+});
+
+//Implémenter la logique des composants//
+
+function createUser(req, res) {
+    const { username, email } = req.body;
+    // Effectuer la logique de création d'utilisateur
+  
+    res.status(201).json({ message: 'Utilisateur créé avec succès' });
+  }
+  
+  module.exports = {
+    createUser,
+  };
+
+//Exécuter les tests//
+
+npx mocha tests
+
+//Exécuter le serveur//
+
+node index.js
+
+//Initialiser le projet//
+
+mkdir restaurant
+cd restaurant
+npm init -y
+
+//Installer les dépendances//
+
+npm install express body-parser ejs --save
+
+
+//Créer le serveur Express//
+
+const express = require('express');
+const bodyParser = require('body-parser');
+
+const app = express();
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static('public'));
+app.set('view engine', 'ejs');
+
+// Route pour la page d'accueil
+app.get('/', (req, res) => {
+  res.render('index');
+});
+
+// Route pour la page de réservation
+app.get('/reservation', (req, res) => {
+  res.render('reservation');
+});
+
+// Route pour gérer la réservation
+app.post('/reservation', (req, res) => {
+  const { name, date, time, guests } = req.body;
+  // Effectuer la logique de réservation
+  // ...
+
+  res.render('reservation-success', { name, date, time, guests });
+});
+
+const port = 3000;
+app.listen(port, () => {
+  console.log(`Serveur en écoute sur le port ${port}`);
+});
+
+//Créer le fichier de test//
+
+const request = require('supertest');
+const app = require('../index');
+
+describe('Réservation de table', () => {
+  it('devrait effectuer une réservation avec succès', (done) => {
+    const reservationData = {
+      name: 'John Doe',
+      date: '2023-05-20',
+      time: '19:00',
+      guests: 4,
+    };
+
+    request(app)
+      .post('/reservation')
+      .send(reservationData)
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err);
+
+        // Vérifier la réponse JSON
+        assert.equal(res.body.message, 'Réservation effectuée avec succès');
+
+        done();
+      });
+  });
+});
+
+//Exécuter les tests//
+
+npx mocha tests

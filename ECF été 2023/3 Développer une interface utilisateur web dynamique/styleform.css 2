@@ -1,0 +1,61 @@
+img {
+
+    border-collapse: collapse;
+    width: 100%
+}
+
+
+
+
+body {
+ 
+        background-color: burlywood;
+      
+  }
+
+
+h1 {
+color: #b89d24
+}
+
+
+a {
+    float: right;
+    margin-right: 20px;
+  }
+
+  table {
+          border-collapse: collapse;
+          position:center;
+
+        }
+    
+    
+table, th, td {
+          border: 1px solid black;
+          bottom: 120px;
+        }
+
+.table-styling th, .table-styling td {
+  padding: 10px;
+  text-align: justify;
+
+}
+
+
+.bloc1{ 
+
+        position: absolute;
+        background: transparent;background-color: transparent; 
+        padding: 55px;
+        width: 50px;
+        opacity: 10;
+
+}
+
+.table-1, .table-2 {
+    display: inline-block;
+    vertical-align: top;
+  }
+  
+  
